@@ -1,0 +1,26 @@
+﻿<div class="card">
+    <!--Uso de parametros para generar componentes reutilizables con parámetros como en React-->
+    <img src="@Imagen" class="card-img-top" alt="@Titulo" />
+    <div class="card-body">
+        <h5 class="card-title">@Titulo</h5>
+        <p class="card-text">@Descripcion</p>
+        <button class="btn btn-primary">Conocer más</button>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Imagen { 
+        get; 
+        set; 
+    }
+
+    [Parameter] public string Titulo { 
+        get; 
+        set; 
+    }
+
+    [Parameter] public string Descripcion { 
+        get; 
+        set; 
+    }
+}

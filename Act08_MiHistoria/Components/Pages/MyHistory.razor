@@ -1,0 +1,41 @@
+﻿@page "/my-history"
+<!--Define la URL de esta página (como una ruta en React Router)-->
+
+<!--Parte de HTML o parte visible, como el return() de React-->
+<PageTitle>Mi historia</PageTitle> <!--Esto es el <title>-->
+
+<div class="container">
+    <h1>Mi historia</h1>
+
+    <p>A continuación les escribiré información relevante de mi vida.</p>
+
+    <div class="row"> 
+        <section class="col-md-4">
+            <Act08_MiHistoria.Components.Shared.GeneralInfoCard
+                Imagen="https://portal.ucol.mx/content/micrositios/109/image/Banner_AulasLogo_1500x600px.png"
+                Titulo="Formación"
+                Descripcion="Cuento algo sobre mi formación profesional." />
+        </section>
+
+        <section class="col-md-4">
+            <Act08_MiHistoria.Components.Shared.GeneralInfoCard 
+            Imagen="https://lectambulos.com/wp-content/uploads/2021/11/JVTEG7FSKFAPDH776M5Q2NIPNY.jpg"
+            Titulo="Hobbies"
+            Descripcion="Cuento algo sobre mis hobbies." />
+        </section>
+
+        <section class="col-md-4">
+            <Act08_MiHistoria.Components.Shared.GeneralInfoCard 
+            Imagen="https://telematicanet.ucol.mx/wp-content/uploads/2022/10/telematica1.jpg"
+            Titulo="Mi carrera"
+            Descripcion="Cuento algo sobre lo que espero de mi carrera." />
+        </section>
+    </div>
+
+</div>
+
+
+<!--Parte de código/lógica-->
+@code {
+
+}
