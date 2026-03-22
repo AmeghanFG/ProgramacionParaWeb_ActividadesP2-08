@@ -1,0 +1,24 @@
+﻿@page "/saludo"
+<h3>Saludo</h3>
+
+<div class="alert alert-success">
+    @Letrero
+</div>
+
+@code {
+    // Las propiedades son las que definen la apariencia del objeto 
+        /* Clase publica [teoría de encapsulación], abierto a que desde fuera se pueda tener 
+         * comunicación con le objeto interno de la clase */
+    [Parameter]
+    public string Letrero
+    {
+        /* Para que la clase acepte valores nulos, se agrega "?" -> string? al final del tipo de dato, o también se puede inicializar 
+         * al momento de crearlo */
+
+    get; // Métodos [Lectura]
+        set; // Métodos [Escritura]
+    } = "¡Hola mundo! Cambio Uno";
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}
