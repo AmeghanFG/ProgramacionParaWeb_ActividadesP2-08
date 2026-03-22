@@ -1,0 +1,55 @@
+﻿@page "/cambio-moneda"
+@rendermode InteractiveServer
+
+<!--Actividad 09-->
+
+<!--Parte de HTML o parte visible, como el return() de React-->
+<PageTitle>Cambio Moneda</PageTitle> <!--Esto es el <title>-->
+
+<div class="container">
+    <h1>Cambio de Moneda</h1>
+
+    <div class="d-flex align-items-center m-2 gap-2">
+        <label for="pesos" class="w-10">Pesos</label>
+        <input class="form-control w-75" id="pesos" type="number" @bind="pesos" />
+    </div>
+
+    <button class="btn btn-primary my-3" @onclick="Convertir">Convertir a Dólares</button>
+    <p>Pesos vale: @pesos | Dólares vale: @dolares</p>
+
+    <div class="d-flex align-items-center m-2 gap-2">
+        <label for="dolares" class="w-10">Dólares</label>
+        <input class="form-control w-75" id="dolares" name="dolares" disabled @bind="dolares" />
+    </div>
+
+    <div class="d-flex align-items-center m-2 gap-2">
+        <label for="euros" class="w-10">Euros</label>
+        <input class="form-control w-75" id="euros" disabled @bind="euros" />
+    </div>
+
+    <div class="d-flex align-items-center m-2 gap-2">
+        <label for="libras" class="w-10">Libras</label>
+        <input class="form-control w-75" id="libras" name="libras" disabled @bind="libras" />
+    </div>
+
+
+</div>
+
+@code {
+
+    // Declaración e inicialización de las variables
+    double pesos = 0;
+    double dolares = 0;
+    double euros = 0;
+    double libras = 0;
+
+    void Convertir()
+    {
+
+        // dolares 17.9, euro 20.67, libras 23.82
+        dolares = pesos / 17.9;
+        euros = pesos / 20.67;
+        libras = pesos / 23.82;
+    }
+
+}
