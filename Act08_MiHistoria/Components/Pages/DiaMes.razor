@@ -1,0 +1,90 @@
+﻿@page "/dias-mes"
+@rendermode InteractiveServer
+
+<div class="container">
+    <h3>Conocer los días del mes</h3>
+
+    <div class="d-flex align-items-center m-2 gap-2">
+        <label for="mes" class="w-10">Mes</label>
+        <input class="form-control w-75" id="mes" type="number" @bind="mes" />
+    </div>
+
+    <div class="d-flex align-items-center m-2 gap-2">
+        <label for="mes" class="w-10">Año</label>
+        <input class="form-control w-75" id="mes" type="number" @bind="year" />
+    </div>
+
+    <button class="btn btn-primary my-3" @onclick="Calcular">Calcular</button>
+    <!--En la actividad dice en el btn "Mostrar número de días" pero en la imagen vi que dice "Calcular", dejaré la más simple-->
+
+    @if (errorInput)
+    {
+        <div class="alert alert-danger">
+            @mensaje
+        </div>
+    }
+    else if(!errorDias(resultado))
+    {
+        <div class="alert alert-danger">
+            <p>Hay un error en la cantidad de días del mes: @resultado</p>
+        </div>
+        
+    } else if (resultado > 0)
+    {
+        <p class="fs-2">El mes @mes del año @year tiene @resultado días.</p>
+    }
+
+</div> <!--Fin contenedor-->
+
+@code {
+    int mes = 0;
+    int year = 0;
+
+    bool errorInput = false;
+    bool esBisiesto = false;
+    string mensaje = "";
+    int resultado = 0;
+
+    public bool errorDias(int dias)
+    {
+        return (dias > 0 || dias <= 31);
+        // true: No hay error 0-31 días
+        // false: Hay error
+    }
+
+    void Calcular()
+    {
+        errorInput = false;
+        if (mes <= 0 || mes > 12 || year <= 0)
+        {
+            errorInput = true;
+            mensaje = "El mes debe ser un número entre 1 y 12, el año debe ser mayor o igual a 0";
+            return;
+        } else if (mes == 2)
+        {
+            // El mes de febrero puede tener 28* días, o bien 29* si el año es bisiesto.
+            /* Un año es bisiesto cuando es múltiplo de 4* y no de 100*, o cuando es múltiplo de 400*. 
+            * Por ejemplo, el año 2000 por las dos primeras condiciones no sería bisiesto, pero sí lo 
+            * es porque es múltiplo de 400; el año 2100 no es bisiesto porque aunque sea múltiplo de 4, 
+            * también lo es de 100 y no es múltiplo de 400.*/
+
+    esBisiesto = ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) ? true : false;
+            resultado = esBisiesto ? 29 : 28;
+        } else if(mes == 4 || mes == 6 || mes == 9 || mes == 11)
+        {
+            // Los meses 4, 6, 9 y 11 tienen 30 días.
+            resultado = 30;
+        } else
+        {
+            // Los meses 1, 3, 5, 7, 8, 10 y 12 tienen 31 días.
+            resultado = 31;
+        }
+
+
+
+        /* Recomendación de la IA, investigar como funciona -> el método DaysInMonth de la clase DateTime, que recibe como parámetros el año y el mes, y devuelve el número de días en ese mes específico. 
+         * int diasEnMes = DateTime.DaysInMonth(year, mes);
+         * Console.WriteLine($"El mes {mes} del año {year} tiene {diasEnMes} días."); */
+    }
+
+}

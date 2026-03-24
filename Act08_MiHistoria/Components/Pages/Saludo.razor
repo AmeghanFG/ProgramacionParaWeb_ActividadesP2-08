@@ -1,16 +1,44 @@
 ﻿@page "/saludo"
-<h3>Saludo</h3>
+@rendermode InteractiveServer
 
+<h3>Saludo</h3>
 <div class="alert alert-success">
-    @Letrero
+    @_letrero <br />
+    @_letreroEdad
+    <!--Aqui el {} hace implicitamte el toString()-->
+    <!-- Contenido de la variable letrero, cuando se pone la arroba lo que sigue es C#-->
 </div>
 
+<!--<div class="alert alert-info">
+    @ChildContent
+</div>-->
+
+<div class="container">
+    <div class="row align-items-center">
+        <label class="col-form-label">Nombre: </label>
+        <input id="txtNombre" class="form-control" @bind="Letrero" />
+
+        <label class="col-form-label">Edad: </label>
+        <input id="edad" class="form-control" @bind="_datoEdad" />
+    </div>
+</div>
+
+<button class="btn btn-primary mt-3" @onclick="Saludar">Saludar</button>
+
 @code {
+
+    private long _enteroLargo = 1000000000;
+    private int _edad, _datoEdad;
+    private string _letrero = "Hola mundo", _letreroEdad = "";
+
+
+
+
     // Las propiedades son las que definen la apariencia del objeto 
         /* Clase publica [teoría de encapsulación], abierto a que desde fuera se pueda tener 
          * comunicación con le objeto interno de la clase */
     [Parameter]
-    public string Letrero
+    public string LetreroEj
     {
         /* Para que la clase acepte valores nulos, se agrega "?" -> string? al final del tipo de dato, o también se puede inicializar 
          * al momento de crearlo */
@@ -20,5 +48,27 @@
     } = "¡Hola mundo! Cambio Uno";
 
     [Parameter]
+    public string Letrero { get; set; } = "¡Cambio de contenido!";
+
+
+    [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    // Método (para acciones que ejecuta la clase) que se ejecuta en el botón 
+    void Saludar()
+    {
+        // + para concatenar cadenas y como esta conectado se modifica la visualización del DOM
+        _letrero = "Hola " + Letrero + "!";
+        _edad = _datoEdad;
+        if (_edad < 19)
+        {
+            _letreroEdad = $"Tienes {_datoEdad} años. Eres menor de edad";
+        } else {
+            _letreroEdad = $"Tienes {_datoEdad} años. Eres mayor de edad";
+        }
+
+        _enteroLargo = _edad;
+        _edad = Convert.ToInt32(_enteroLargo); // Aquí explicitamente se hace la conversión de un tipo de dato a otro, en este caso de un entero largo a un entero normal, pero como el valor del entero largo es mayor al máximo permitido por un entero normal, se pierde información y el resultado no es correcto
+        _edad = (int)_enteroLargo; // Aquí se hace la conversión de un tipo de dato a otro,"Casteo"
+    }
 }
