@@ -1,5 +1,30 @@
-﻿@page "/estado-sistema"
-@rendermode InteractiveServer
+﻿<div class="container">
+    <!--<h3>Estado del sistema</h3>-->
+    @if (CodigoEstado == 200)
+    {
+        <div class="alert alert-success" role="alert">
+            <p class="fs-2 m-0">Código: @CodigoEstado, Sistema Operacional</p>
+        </div>
+    }
+    else if (CodigoEstado == 404)
+    {
+        <div class="alert alert-warning" role="alert">
+            <p class="fs-2 m-0">Código: @CodigoEstado, Recurso No Encontrado</p>
+        </div>
+    } else if (CodigoEstado == 500)
+    {
+        <div class="alert alert-danger" role="alert">
+            <p class="fs-2 m-0">Código: @CodigoEstado, Error Interno del Servidor</p>
+        </div>
+    } else
+    {
+        <div class="alert alert-secondary" role="alert">
+            <p class="fs-2 m-0">Código: @CodigoEstado, Estado desconocido</p>
+        </div>
+    }
+
+
+</div> <!--Fin contenedor componente-->
 
 @code {
     [Parameter]
