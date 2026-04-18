@@ -20,6 +20,9 @@
 
         <label class="col-form-label">Edad: </label>
         <input id="edad" class="form-control" @bind="_datoEdad" />
+
+        <label class="col-form-label">Calificación: </label>
+        <input id="calificacion" class="form-control" @bind="_datoCalificacion" />
     </div>
 </div>
 
@@ -30,6 +33,7 @@
     private long _enteroLargo = 1000000000;
     private int _edad, _datoEdad;
     private string _letrero = "Hola mundo", _letreroEdad = "";
+    int _datoCalificacion = 0;
 
 
 
@@ -70,5 +74,30 @@
         _enteroLargo = _edad;
         _edad = Convert.ToInt32(_enteroLargo); // Aquí explicitamente se hace la conversión de un tipo de dato a otro, en este caso de un entero largo a un entero normal, pero como el valor del entero largo es mayor al máximo permitido por un entero normal, se pierde información y el resultado no es correcto
         _edad = (int)_enteroLargo; // Aquí se hace la conversión de un tipo de dato a otro,"Casteo"
+
+        string _letreroCalificacion;
+
+        if (_datoCalificacion >= 10)
+        {
+            _letreroCalificacion = "A+";
+        }
+        else if (_datoCalificacion >= 9)
+        {
+            _letreroCalificacion = "A";
+        }
+        else if (_datoCalificacion >= 8)
+        {
+            _letreroCalificacion = "B";
+        } else if (_datoCalificacion >= 7)
+        {
+            _letreroCalificacion = "C";
+        }
+        else if (_datoCalificacion >= 6)
+        {
+            _letreroCalificacion = "D";
+        } else
+        {
+            _letreroCalificacion = "F";
+        }
     }
 }

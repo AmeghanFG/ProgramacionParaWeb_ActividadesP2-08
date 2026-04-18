@@ -1,0 +1,55 @@
+﻿@page "/numeros-primos"
+@rendermode InteractiveServer
+
+<div class="container">
+    <h3>Numeros Primos</h3>
+
+    <div class="d-flex align-items-center m-2 gap-2">
+        <label for="numero" class="w-10">Número entero:</label>
+        <input id="numero" class="form-control w-25"  type="number" @bind="numero" placeholder="Número entero" />
+    </div>
+
+    <button class="btn btn-primary my-3" @onclick="generarNumeros">Generar primos</button>
+
+    <div class="container mt-3">
+        <h2>Números primos</h2>
+        <!-- Aquí se mostrarán los números primos generados -->
+        <ul class="list-group"> 
+            @((MarkupString)_listaNumeros) 
+        </ul>
+    </div>
+
+
+</div>
+
+@code {
+    private int numero;
+    private string _listaNumeros = "";
+
+    private void generarNumeros()
+    {
+        _listaNumeros = ""; // Limpiar la lista antes de generar nuevos números primos
+
+        for (int i = 1; i <= numero; i++)
+        {
+            if(esPrimo(i))
+            {
+                _listaNumeros += $"<li>{i}</li>"; // Agrega el número primo a la lista en formato HTML
+            }
+        }
+    }
+
+    private bool esPrimo(int num)
+    {
+        if (num <= 1) return false; // Mayor que 1 
+        if (num == 2) return true; // El número 2 es primo
+        if (num % 2 == 0) return false; // Los números pares mayores que 2 no son primos
+
+        for (int i = 3; i <= Math.Sqrt(num); i+=2)
+        {
+            if (num % i == 0) return false; // Si tiene otro divisor además de 1 y él mismo, no es primo
+        }
+
+        return true;
+    }
+}
