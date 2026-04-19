@@ -4,13 +4,31 @@
 <div class="container">
     <h2>ListaActividades</h2>
 
-    <div >
-        <h3>Agregar actividades</h3>
+    <div class="d-flex align-items-center m-2 gap-2">
+        <label for="txtActividad" class="w-10">Actividad: </label>
+        <input id="txtActividad" class="form-control w-25" type="text" @bind="_actividad" placeholder="Actividad" />
+        <button class="btn btn-primary" @onclick="Guardar">Guardar</button>
+    </div>
 
+    <div>
+        <h3>Actividades</h3>
+        <ul>
 
+        </ul>
     </div>
 </div>
 
 @code {
+    private string _actividad = "";
 
+    private List<string> _actividades = new();
+
+     private void Guardar()
+    {
+        if (!string.IsNullOrWhiteSpace(_actividad))
+        {
+            _actividades.Add(_actividad);
+            _actividad = "";
+        }
+    }
 }
