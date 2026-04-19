@@ -33,13 +33,13 @@
         <!-- Bloque de actividades completadas-->
         <div class="w-50">
             <h3>Actividades completadas</h3>
-            <ul class="list-group d-flex justify-content-between align-items-center">
+            <ul class="list-group">
                 @foreach (var actividad in _actividadesCompletadas)
                 {
-                    <li class="list-group-item">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
                         @actividad
                         <div>
-                            <button class="btn btn-sm btn-success">↩</button>
+                            <button class="btn btn-sm btn-success" @onclick="() => Regresar(actividad)">↩</button>
                             <button class="btn btn-sm btn-danger" @onclick="() => Eliminar(actividad, _actividades)">✖</button>
                         </div>
                     </li>
