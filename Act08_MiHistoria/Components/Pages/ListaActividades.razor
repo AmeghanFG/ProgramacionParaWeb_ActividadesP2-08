@@ -10,25 +10,81 @@
         <button class="btn btn-primary" @onclick="Guardar">Guardar</button>
     </div>
 
-    <div>
-        <h3>Actividades</h3>
-        <ul>
+    <!--Listas de actividades-->
+    <div class="d-flex gap-4 mt-4 justify-content-around">
+        <!-- Bloque de actividades pendientes-->
+        <div class="w-50">
+            <h3>Actividades por realizar</h3>
+            <ul class="list-group">
+                @foreach (var actividad in _actividades)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        @actividad
+                        <div>
+                            <button class="btn btn-sm btn-success" @onclick="() => Completar(actividad)">✔</button>
+                            <button class="btn btn-sm btn-danger" @onclick="() => Eliminar(actividad, _actividades)">✖</button>
+                        </div>
+                    </li>
+                    
+                }
+            </ul>
+        </div>
 
-        </ul>
+        <!-- Bloque de actividades completadas-->
+        <div class="w-50">
+            <h3>Actividades completadas</h3>
+            <ul class="list-group d-flex justify-content-between align-items-center">
+                @foreach (var actividad in _actividadesCompletadas)
+                {
+                    <li class="list-group-item">
+                        @actividad
+                        <div>
+                            <button class="btn btn-sm btn-success">↩</button>
+                            <button class="btn btn-sm btn-danger" @onclick="() => Eliminar(actividad, _actividades)">✖</button>
+                        </div>
+                    </li>
+             
+                }
+            </ul>
+        </div>
     </div>
+
+
 </div>
 
 @code {
     private string _actividad = "";
 
     private List<string> _actividades = new();
+    private List<string> _actividadesCompletadas = new();
 
-     private void Guardar()
+    // Guardado de actividades primario en la lista de actividades por hacer (por defecto)
+    private void Guardar()
     {
         if (!string.IsNullOrWhiteSpace(_actividad))
         {
             _actividades.Add(_actividad);
             _actividad = "";
         }
+    }
+
+    // ELiminación de la actividad
+    private void Eliminar(string act, List<string> lista)
+    {
+        lista.Remove(act);
+    }
+
+    // Completar actividad
+    private void Completar(string act)
+    {
+        _actividadesCompletadas.Add(act); // Agregarla a la lista de completados
+        _actividades.Remove(act); // Quirtarla de la lista de actividades por completar
+    }
+
+    // Mover la actividad a la lista de por realizar
+    private void Regresar(string act)
+    {
+        _actividadesCompletadas.Remove(act);
+        _actividades.Add(act);
     }
 }
